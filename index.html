@@ -1,11 +1,464 @@
 <!DOCTYPE html>
-<html>
-</head>
-<title>BPDAS</title>
-</html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<body style="backgroud:green;color;white;text-align:center;padding-top:100px;font-family:Arial;">
-<h1>WEBSITE BPDAS BERHASIL</h1>
+<title>BPDAS Bone Limboto</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:
+linear-gradient(rgba(46,125,50,0.85),rgba(46,125,50,0.85)),
+url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+background-size:cover;
+background-attachment:fixed;
+min-height:100vh;
+}
+
+/* LOGIN */
+
+#loginPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.login-box{
+background:white;
+width:350px;
+padding:35px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
+text-align:center;
+}
+
+.login-box h1{
+color:#2e7d32;
+margin-bottom:10px;
+}
+
+.login-box p{
+margin-bottom:20px;
+color:#666;
+}
+
+.login-box input{
+width:100%;
+padding:12px;
+margin-top:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:15px;
+}
+
+.login-box button{
+width:100%;
+padding:12px;
+margin-top:18px;
+background:#2e7d32;
+border:none;
+border-radius:10px;
+color:white;
+font-size:16px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.login-box button:hover{
+background:#1b5e20;
+}
+
+/* DASHBOARD */
+
+#dashboard{
+display:none;
+padding:20px;
+}
+
+.header{
+background:rgba(255,255,255,0.92);
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 15px rgba(0,0,0,0.2);
+}
+
+.logo{
+width:90px;
+margin-bottom:10px;
+}
+
+.header h1{
+color:#1b5e20;
+font-size:32px;
+}
+
+.header h2{
+margin-top:10px;
+font-size:18px;
+color:#444;
+}
+
+.cards{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+margin-top:25px;
+}
+
+.card{
+background:white;
+flex:1;
+min-width:220px;
+padding:25px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.card h3{
+color:#555;
+margin-bottom:10px;
+}
+
+.card h1{
+color:#2e7d32;
+font-size:38px;
+}
+
+/* INPUT */
+
+.input-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-top:25px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.input-box h2{
+margin-bottom:20px;
+color:#1b5e20;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.form-grid input,
+.form-grid select{
+padding:12px;
+border-radius:10px;
+border:1px solid #ccc;
+}
+
+.button-group{
+display:flex;
+gap:15px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.btn-produksi{
+background:#2e7d32;
+}
+
+.btn-distribusi{
+background:#6d4c41;
+}
+
+.button-group button{
+padding:12px 25px;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+font-size:15px;
+font-weight:bold;
+}
+
+/* TABLE */
+
+.table-box{
+background:white;
+margin-top:25px;
+padding:20px;
+border-radius:20px;
+overflow:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.table-box h2{
+margin-bottom:20px;
+color:#1b5e20;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:1200px;
+}
+
+table th{
+background:#2e7d32;
+color:white;
+padding:12px;
+font-size:14px;
+}
+
+table td{
+border:1px solid #ddd;
+padding:10px;
+text-align:center;
+font-size:14px;
+}
+
+/* DOWNLOAD */
+
+.download{
+text-align:center;
+margin-top:25px;
+}
+
+.download button{
+padding:15px 35px;
+background:#2e7d32;
+border:none;
+border-radius:12px;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.download button:hover{
+background:#1b5e20;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginPage">
+
+<div class="login-box">
+
+<h1>LOGIN ADMIN</h1>
+
+<p>Sistem Produksi & Distribusi Bibit</p>
+
+<input type="text" id="username" placeholder="Username">
+
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">LOGIN</button>
+
+<p id="error" style="color:red;margin-top:15px;"></p>
+
+</div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div id="dashboard">
+
+<div class="header">
+
+<img class="logo"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg/1200px-Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg.png">
+
+<h1>BPDAS BONE LIMBOTO</h1>
+
+<h2>SISTEM PENCATATAN PRODUKSI & DISTRIBUSI BIBIT</h2>
+
+</div>
+
+<!-- CARD -->
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Produksi</h3>
+<h1>0</h1>
+</div>
+
+<div class="card">
+<h3>Total Distribusi</h3>
+<h1>0</h1>
+</div>
+
+<div class="card">
+<h3>Sisa Stok</h3>
+<h1>0</h1>
+</div>
+
+<div class="card">
+<h3>Persen Capaian</h3>
+<h1>0%</h1>
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="input-box">
+
+<h2>INPUT DATA</h2>
+
+<div class="form-grid">
+
+<input type="text" placeholder="Nama Bibit">
+
+<input type="number" placeholder="Target">
+
+<select>
+<option>Pilih Bulan</option>
+<option>Januari</option>
+<option>Februari</option>
+<option>Maret</option>
+<option>April</option>
+<option>Mei</option>
+<option>Juni</option>
+<option>Juli</option>
+<option>Agustus</option>
+<option>September</option>
+<option>Oktober</option>
+<option>November</option>
+<option>Desember</option>
+</select>
+
+<input type="number" placeholder="Jumlah">
+
+</div>
+
+<div class="button-group">
+
+<button class="btn-produksi">Tambah Produksi</button>
+
+<button class="btn-distribusi">Tambah Distribusi</button>
+
+</div>
+
+</div>
+
+<!-- TABEL PRODUKSI -->
+
+<div class="table-box">
+
+<h2>DATA PRODUKSI</h2>
+
+<table>
+
+<tr>
+<th>Nama Bibit</th>
+<th>Target</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>Mei</th>
+<th>Jun</th>
+<th>Jul</th>
+<th>Agu</th>
+<th>Sep</th>
+<th>Okt</th>
+<th>Nov</th>
+<th>Des</th>
+<th>Total</th>
+<th>%</th>
+</tr>
+
+<tr>
+<td colspan="16">Belum ada data</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- TABEL DISTRIBUSI -->
+
+<div class="table-box">
+
+<h2>DATA DISTRIBUSI</h2>
+
+<table>
+
+<tr>
+<th>Nama Bibit</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>Mei</th>
+<th>Jun</th>
+<th>Jul</th>
+<th>Agu</th>
+<th>Sep</th>
+<th>Okt</th>
+<th>Nov</th>
+<th>Des</th>
+<th>Total Distribusi</th>
+<th>Sisa Stok</th>
+</tr>
+
+<tr>
+<td colspan="15">Belum ada data</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- DOWNLOAD -->
+
+<div class="download">
+
+<button>DOWNLOAD EXCEL</button>
+
+</div>
+
+</div>
+
+<script>
+
+function login(){
+
+let username=document.getElementById("username").value;
+
+let password=document.getElementById("password").value;
+
+if(username==="admin" && password==="12345"){
+
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("dashboard").style.display="block";
+
+}else{
+
+document.getElementById("error").innerHTML="Username atau Password Salah!";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
