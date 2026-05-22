@@ -16,13 +16,7 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:
-linear-gradient(rgba(46,125,50,0.82),rgba(46,125,50,0.82)),
-url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-min-height:100vh;
+background:#e8f5e9;
 }
 
 /* LOGIN */
@@ -32,9 +26,7 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:
-linear-gradient(rgba(46,125,50,0.7),rgba(46,125,50,0.7)),
-url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e');
+background-image:url('login.jpg');
 background-size:cover;
 background-position:center;
 }
@@ -44,12 +36,12 @@ background:rgba(255,255,255,0.95);
 width:350px;
 padding:35px;
 border-radius:20px;
-box-shadow:0 0 20px rgba(0,0,0,0.3);
 text-align:center;
+box-shadow:0 0 20px rgba(0,0,0,0.3);
 }
 
 .login-logo{
-width:90px;
+width:100px;
 margin-bottom:15px;
 }
 
@@ -69,24 +61,19 @@ padding:12px;
 margin-top:12px;
 border-radius:10px;
 border:1px solid #ccc;
-font-size:15px;
 }
 
 .login-box button{
 width:100%;
 padding:12px;
-margin-top:18px;
-background:#2e7d32;
+margin-top:15px;
 border:none;
 border-radius:10px;
+background:#2e7d32;
 color:white;
 font-size:16px;
 cursor:pointer;
 font-weight:bold;
-}
-
-.login-box button:hover{
-background:#1b5e20;
 }
 
 /* DASHBOARD */
@@ -94,6 +81,15 @@ background:#1b5e20;
 #dashboard{
 display:none;
 padding:20px;
+
+background-image:
+linear-gradient(rgba(46,125,50,0.8),rgba(46,125,50,0.8)),
+url('dashboard.jpg');
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+min-height:100vh;
 }
 
 .header{
@@ -101,31 +97,30 @@ background:rgba(255,255,255,0.92);
 padding:25px;
 border-radius:20px;
 text-align:center;
-box-shadow:0 0 15px rgba(0,0,0,0.2);
+margin-bottom:25px;
 }
 
 .watermark{
-width:100px;
+width:110px;
 margin-bottom:15px;
-opacity:0.95;
 }
 
 .header h1{
 color:#1b5e20;
-font-size:32px;
 }
 
 .header h2{
-margin-top:10px;
-font-size:18px;
 color:#444;
+margin-top:10px;
 }
+
+/* CARD */
 
 .cards{
 display:flex;
 gap:20px;
 flex-wrap:wrap;
-margin-top:25px;
+margin-bottom:25px;
 }
 
 .card{
@@ -135,7 +130,6 @@ min-width:220px;
 padding:25px;
 border-radius:20px;
 text-align:center;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 .card h3{
@@ -145,7 +139,7 @@ margin-bottom:10px;
 
 .card h1{
 color:#2e7d32;
-font-size:38px;
+font-size:35px;
 }
 
 /* INPUT */
@@ -154,13 +148,7 @@ font-size:38px;
 background:white;
 padding:20px;
 border-radius:20px;
-margin-top:25px;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
-}
-
-.input-box h2{
-margin-bottom:20px;
-color:#1b5e20;
+margin-bottom:25px;
 }
 
 .form-grid{
@@ -196,20 +184,18 @@ padding:12px 25px;
 border:none;
 border-radius:10px;
 color:white;
-cursor:pointer;
-font-size:15px;
 font-weight:bold;
+cursor:pointer;
 }
 
 /* TABLE */
 
 .table-box{
 background:white;
-margin-top:25px;
 padding:20px;
 border-radius:20px;
+margin-bottom:25px;
 overflow:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.2);
 }
 
 .table-box h2{
@@ -227,22 +213,18 @@ table th{
 background:#2e7d32;
 color:white;
 padding:12px;
-font-size:14px;
 }
 
 table td{
 border:1px solid #ddd;
 padding:10px;
 text-align:center;
-font-size:14px;
 }
 
 /* DOWNLOAD */
 
 .download{
 text-align:center;
-margin-top:25px;
-margin-bottom:40px;
 }
 
 .download button{
@@ -256,10 +238,6 @@ font-weight:bold;
 cursor:pointer;
 }
 
-.download button:hover{
-background:#1b5e20;
-}
-
 </style>
 </head>
 
@@ -271,8 +249,7 @@ background:#1b5e20;
 
 <div class="login-box">
 
-<img class="login-logo"
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg/1200px-Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg.png">
+<img class="login-logo" src="logo.png">
 
 <h1>LOGIN ADMIN</h1>
 
@@ -296,16 +273,13 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 
 <div class="header">
 
-<img class="watermark"
-src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg/1200px-Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg.png">
+<img class="watermark" src="logo.png">
 
 <h1>BPDAS BONE LIMBOTO</h1>
 
 <h2>SISTEM PENCATATAN PRODUKSI & DISTRIBUSI BIBIT</h2>
 
 </div>
-
-<!-- CARD -->
 
 <div class="cards">
 
@@ -330,8 +304,6 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 </div>
 
 </div>
-
-<!-- INPUT -->
 
 <div class="input-box">
 
@@ -373,8 +345,6 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 
 </div>
 
-<!-- TABEL PRODUKSI -->
-
 <div class="table-box">
 
 <h2>DATA PRODUKSI</h2>
@@ -408,8 +378,6 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 
 </div>
 
-<!-- TABEL DISTRIBUSI -->
-
 <div class="table-box">
 
 <h2>DATA DISTRIBUSI</h2>
@@ -442,8 +410,6 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 
 </div>
 
-<!-- DOWNLOAD -->
-
 <div class="download">
 
 <button>DOWNLOAD EXCEL</button>
@@ -457,13 +423,11 @@ src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_
 function login(){
 
 let username=document.getElementById("username").value;
-
 let password=document.getElementById("password").value;
 
 if(username==="admin" && password==="12345"){
 
 document.getElementById("loginPage").style.display="none";
-
 document.getElementById("dashboard").style.display="block";
 
 }else{
