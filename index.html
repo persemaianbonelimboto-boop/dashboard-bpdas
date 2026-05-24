@@ -142,7 +142,7 @@ color:#2e7d32;
 font-size:35px;
 }
 
-/* INPUT */
+/* FORM MASYARAKAT */
 
 .input-box{
 background:white;
@@ -151,17 +151,28 @@ border-radius:20px;
 margin-bottom:25px;
 }
 
+.input-box h2{
+margin-bottom:20px;
+color:#1b5e20;
+}
+
 .form-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:15px;
 }
 
 .form-grid input,
-.form-grid select{
+.form-grid textarea{
 padding:12px;
 border-radius:10px;
 border:1px solid #ccc;
+width:100%;
+}
+
+textarea{
+min-height:100px;
+resize:none;
 }
 
 .button-group{
@@ -173,10 +184,6 @@ flex-wrap:wrap;
 
 .btn-produksi{
 background:#2e7d32;
-}
-
-.btn-distribusi{
-background:#6d4c41;
 }
 
 .button-group button{
@@ -281,6 +288,8 @@ cursor:pointer;
 
 </div>
 
+<!-- CARD -->
+
 <div class="cards">
 
 <div class="card">
@@ -305,45 +314,43 @@ cursor:pointer;
 
 </div>
 
+<!-- FORM MASYARAKAT -->
+
 <div class="input-box">
 
-<h2>INPUT DATA</h2>
+<h2>FORM PENGAMBILAN BIBIT</h2>
 
 <div class="form-grid">
 
-<input type="text" placeholder="Nama Bibit">
+<input type="text" placeholder="Nama Lengkap">
 
-<input type="number" placeholder="Target">
+<input type="text" placeholder="NIK">
 
-<select>
-<option>Pilih Bulan</option>
-<option>Januari</option>
-<option>Februari</option>
-<option>Maret</option>
-<option>April</option>
-<option>Mei</option>
-<option>Juni</option>
-<option>Juli</option>
-<option>Agustus</option>
-<option>September</option>
-<option>Oktober</option>
-<option>November</option>
-<option>Desember</option>
-</select>
+<input type="text" placeholder="Alamat">
 
-<input type="number" placeholder="Jumlah">
+<input type="text" placeholder="Nomor HP">
+
+<input type="text" placeholder="Jenis Bibit">
+
+<input type="number" placeholder="Jumlah Bibit">
+
+<input type="file">
+
+<textarea placeholder="Tujuan Penanaman"></textarea>
 
 </div>
 
 <div class="button-group">
 
-<button class="btn-produksi">Tambah Produksi</button>
+<button class="btn-produksi">
+Kirim Permintaan Bibit
+</button>
 
-<button class="btn-distribusi">Tambah Distribusi</button>
+</div>
 
 </div>
 
-</div>
+<!-- TABEL PRODUKSI -->
 
 <div class="table-box">
 
@@ -378,6 +385,8 @@ cursor:pointer;
 
 </div>
 
+<!-- TABEL DISTRIBUSI -->
+
 <div class="table-box">
 
 <h2>DATA DISTRIBUSI</h2>
@@ -385,30 +394,25 @@ cursor:pointer;
 <table>
 
 <tr>
-<th>Nama Bibit</th>
-<th>Jan</th>
-<th>Feb</th>
-<th>Mar</th>
-<th>Apr</th>
-<th>Mei</th>
-<th>Jun</th>
-<th>Jul</th>
-<th>Agu</th>
-<th>Sep</th>
-<th>Okt</th>
-<th>Nov</th>
-<th>Des</th>
-<th>Total Distribusi</th>
-<th>Sisa Stok</th>
+<th>Nama</th>
+<th>NIK</th>
+<th>Alamat</th>
+<th>No HP</th>
+<th>Jenis Bibit</th>
+<th>Jumlah</th>
+<th>Tujuan</th>
+<th>Status</th>
 </tr>
 
 <tr>
-<td colspan="15">Belum ada data</td>
+<td colspan="8">Belum ada permintaan bibit</td>
 </tr>
 
 </table>
 
 </div>
+
+<!-- DOWNLOAD -->
 
 <div class="download">
 
