@@ -76,16 +76,22 @@ cursor:pointer;
 font-weight:bold;
 }
 
-/* DASHBOARD */
+.info-login{
+margin-top:20px;
+font-size:13px;
+color:#555;
+text-align:left;
+}
 
-#dashboard{
+/* HALAMAN */
+
+#adminPage,
+#masyarakatPage{
 display:none;
 padding:20px;
-
 background-image:
 linear-gradient(rgba(46,125,50,0.8),rgba(46,125,50,0.8)),
 url('dashboard.jpg');
-
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
@@ -217,7 +223,7 @@ color:#1b5e20;
 table{
 width:100%;
 border-collapse:collapse;
-min-width:1200px;
+min-width:1000px;
 }
 
 table th{
@@ -236,7 +242,6 @@ text-align:center;
 
 .download{
 text-align:center;
-display:none;
 }
 
 .download button{
@@ -263,33 +268,45 @@ cursor:pointer;
 
 <img class="login-logo" src="logo.png">
 
-<h1>LOGIN ADMIN</h1>
+<h1>LOGIN SISTEM</h1>
 
-<p>Sistem Produksi & Distribusi Bibit</p>
+<p>BPDAS Bone Limboto</p>
 
 <input type="text" id="username" placeholder="Username">
 
 <input type="password" id="password" placeholder="Password">
 
-<button onclick="login()">LOGIN</button>
+<button onclick="login()">MASUK</button>
 
 <p id="error" style="color:red;margin-top:15px;"></p>
 
+<div class="info-login">
+
+<b>Login Admin</b><br>
+Username : admin<br>
+Password : 12345<br><br>
+
+<b>Login Masyarakat</b><br>
+Username : masyarakat<br>
+Password : masyarakat
+
+</div>
+
 </div>
 
 </div>
 
-<!-- DASHBOARD -->
+<!-- HALAMAN ADMIN -->
 
-<div id="dashboard">
+<div id="adminPage">
 
 <div class="header">
 
 <img class="watermark" src="logo.png">
 
-<h1>BPDAS BONE LIMBOTO</h1>
+<h1>DASHBOARD ADMIN</h1>
 
-<h2>SISTEM PENCATATAN PRODUKSI & DISTRIBUSI BIBIT</h2>
+<h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
 
 </div>
 
@@ -312,18 +329,13 @@ cursor:pointer;
 <h1 id="sisaStok">0</h1>
 </div>
 
-<div class="card">
-<h3>Persen Capaian</h3>
-<h1 id="persen">0%</h1>
 </div>
 
-</div>
-
-<!-- FORM PRODUKSI ADMIN -->
+<!-- PRODUKSI -->
 
 <div class="input-box">
 
-<h2>INPUT PRODUKSI BIBIT (ADMIN)</h2>
+<h2>INPUT PRODUKSI BIBIT</h2>
 
 <div class="form-grid">
 
@@ -344,51 +356,6 @@ Tambah Produksi
 </button>
 
 </div>
-
-</div>
-
-<!-- FORM MASYARAKAT -->
-
-<div class="input-box">
-
-<h2>FORM PENGAMBILAN BIBIT</h2>
-
-<form id="formPermintaan">
-
-<div class="form-grid">
-
-<input id="nama" type="text" placeholder="Nama Lengkap">
-
-<input id="nik" type="text" placeholder="NIK">
-
-<input id="alamat" type="text" placeholder="Alamat">
-
-<input id="hp" type="text" placeholder="Nomor HP">
-
-<input id="bibit" type="text" placeholder="Jenis Bibit">
-
-<input id="jumlah" type="number" placeholder="Jumlah Bibit">
-
-<input type="file">
-
-<textarea id="tujuan" placeholder="Tujuan Penanaman"></textarea>
-
-</div>
-
-<div class="button-group">
-
-<button
-type="button"
-class="btn-produksi"
-onclick="kirimPermintaan()">
-
-Kirim Permintaan Bibit
-
-</button>
-
-</div>
-
-</form>
 
 </div>
 
@@ -440,13 +407,70 @@ Kirim Permintaan Bibit
 
 </div>
 
-<!-- DOWNLOAD ADMIN -->
+<!-- DOWNLOAD -->
 
-<div class="download" id="downloadAdmin">
+<div class="download">
 
 <button onclick="downloadExcel()">
 DOWNLOAD EXCEL
 </button>
+
+</div>
+
+</div>
+
+<!-- HALAMAN MASYARAKAT -->
+
+<div id="masyarakatPage">
+
+<div class="header">
+
+<img class="watermark" src="logo.png">
+
+<h1>FORM PENGAMBILAN BIBIT</h1>
+
+<h2>BPDAS Bone Limboto</h2>
+
+</div>
+
+<div class="input-box">
+
+<form id="formPermintaan">
+
+<div class="form-grid">
+
+<input id="nama" type="text" placeholder="Nama Lengkap">
+
+<input id="nik" type="text" placeholder="NIK">
+
+<input id="alamat" type="text" placeholder="Alamat">
+
+<input id="hp" type="text" placeholder="Nomor HP">
+
+<input id="bibit" type="text" placeholder="Jenis Bibit">
+
+<input id="jumlah" type="number" placeholder="Jumlah Bibit">
+
+<input type="file">
+
+<textarea id="tujuan" placeholder="Tujuan Penanaman"></textarea>
+
+</div>
+
+<div class="button-group">
+
+<button
+type="button"
+class="btn-produksi"
+onclick="kirimPermintaan()">
+
+Kirim Permintaan Bibit
+
+</button>
+
+</div>
+
+</form>
 
 </div>
 
@@ -457,28 +481,43 @@ DOWNLOAD EXCEL
 /* DATA */
 
 let stok=0;
-let isAdmin=false;
 
 /* LOGIN */
 
 function login(){
 
-let username=document.getElementById("username").value;
-let password=document.getElementById("password").value;
+let username=
+document.getElementById("username").value;
+
+let password=
+document.getElementById("password").value;
+
+/* ADMIN */
 
 if(username==="admin" && password==="12345"){
 
-isAdmin=true;
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("adminPage").style.display="block";
+
+}
+
+/* MASYARAKAT */
+
+else if(
+username==="masyarakat" &&
+password==="masyarakat"
+){
 
 document.getElementById("loginPage").style.display="none";
 
-document.getElementById("dashboard").style.display="block";
+document.getElementById("masyarakatPage").style.display="block";
 
-/* TAMPILKAN DOWNLOAD */
+}
 
-document.getElementById("downloadAdmin").style.display="block";
+/* SALAH */
 
-}else{
+else{
 
 document.getElementById("error").innerHTML=
 "Username atau Password Salah!";
@@ -504,8 +543,6 @@ return;
 
 }
 
-/* HAPUS DATA KOSONG */
-
 let kosong=
 document.getElementById("produksiKosong");
 
@@ -514,8 +551,6 @@ if(kosong){
 kosong.remove();
 
 }
-
-/* TAMBAH KE TABEL */
 
 let tabel=
 document.getElementById("tabelProduksi");
@@ -530,8 +565,6 @@ row.innerHTML=`
 
 `;
 
-/* UPDATE PRODUKSI */
-
 let totalProduksi=
 parseInt(document.getElementById("totalProduksi").innerHTML);
 
@@ -540,19 +573,13 @@ totalProduksi += parseInt(jumlah);
 document.getElementById("totalProduksi").innerHTML=
 totalProduksi;
 
-/* UPDATE STOK */
-
 stok += parseInt(jumlah);
 
 document.getElementById("sisaStok").innerHTML=
 stok;
 
-/* RESET */
-
 document.getElementById("produksiBibit").value="";
 document.getElementById("jumlahProduksi").value="";
-
-/* NOTIFIKASI */
 
 alert("Produksi berhasil ditambahkan!");
 
@@ -570,8 +597,6 @@ let bibit=document.getElementById("bibit").value;
 let jumlah=document.getElementById("jumlah").value;
 let tujuan=document.getElementById("tujuan").value;
 
-/* VALIDASI */
-
 if(
 nama=="" ||
 nik=="" ||
@@ -587,8 +612,6 @@ return;
 
 }
 
-/* CEK STOK */
-
 if(parseInt(jumlah) > stok){
 
 alert("Stok bibit tidak cukup!");
@@ -596,15 +619,11 @@ return;
 
 }
 
-/* HAPUS DATA KOSONG */
-
 let kosong=document.getElementById("kosong");
 
 if(kosong){
 kosong.remove();
 }
-
-/* TAMBAH DATA */
 
 let tabel=document.getElementById("tabelDistribusi");
 
@@ -623,8 +642,6 @@ row.innerHTML=`
 
 `;
 
-/* UPDATE DISTRIBUSI */
-
 let totalDistribusi=
 parseInt(document.getElementById("totalDistribusi").innerHTML);
 
@@ -633,36 +650,22 @@ totalDistribusi += parseInt(jumlah);
 document.getElementById("totalDistribusi").innerHTML=
 totalDistribusi;
 
-/* UPDATE STOK */
-
 stok -= parseInt(jumlah);
 
 document.getElementById("sisaStok").innerHTML=
 stok;
 
-/* RESET FORM */
-
 document.getElementById("formPermintaan").reset();
-
-/* NOTIFIKASI */
 
 alert("Permintaan berhasil dikirim!");
 
 }
 
-/* DOWNLOAD EXCEL */
+/* DOWNLOAD */
 
 function downloadExcel(){
 
-if(isAdmin){
-
 alert("Download Excel berhasil!");
-
-}else{
-
-alert("Hanya admin yang bisa download Excel!");
-
-}
 
 }
 
