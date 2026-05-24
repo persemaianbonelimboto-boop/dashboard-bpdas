@@ -186,6 +186,10 @@ flex-wrap:wrap;
 background:#2e7d32;
 }
 
+.btn-admin{
+background:#1565c0;
+}
+
 .button-group button{
 padding:12px 25px;
 border:none;
@@ -232,6 +236,7 @@ text-align:center;
 
 .download{
 text-align:center;
+display:none;
 }
 
 .download button{
@@ -314,6 +319,34 @@ cursor:pointer;
 
 </div>
 
+<!-- FORM PRODUKSI ADMIN -->
+
+<div class="input-box">
+
+<h2>INPUT PRODUKSI BIBIT (ADMIN)</h2>
+
+<div class="form-grid">
+
+<input id="produksiBibit" type="text" placeholder="Nama Bibit">
+
+<input id="jumlahProduksi" type="number" placeholder="Jumlah Produksi">
+
+</div>
+
+<div class="button-group">
+
+<button
+class="btn-admin"
+onclick="tambahProduksi()">
+
+Tambah Produksi
+
+</button>
+
+</div>
+
+</div>
+
 <!-- FORM MASYARAKAT -->
 
 <div class="input-box">
@@ -365,29 +398,15 @@ Kirim Permintaan Bibit
 
 <h2>DATA PRODUKSI</h2>
 
-<table>
+<table id="tabelProduksi">
 
 <tr>
 <th>Nama Bibit</th>
-<th>Target</th>
-<th>Jan</th>
-<th>Feb</th>
-<th>Mar</th>
-<th>Apr</th>
-<th>Mei</th>
-<th>Jun</th>
-<th>Jul</th>
-<th>Agu</th>
-<th>Sep</th>
-<th>Okt</th>
-<th>Nov</th>
-<th>Des</th>
-<th>Total</th>
-<th>%</th>
+<th>Jumlah Produksi</th>
 </tr>
 
-<tr>
-<td colspan="16">Belum ada data produksi</td>
+<tr id="produksiKosong">
+<td colspan="2">Belum ada data produksi</td>
 </tr>
 
 </table>
@@ -421,17 +440,24 @@ Kirim Permintaan Bibit
 
 </div>
 
-<!-- DOWNLOAD -->
+<!-- DOWNLOAD ADMIN -->
 
-<div class="download">
+<div class="download" id="downloadAdmin">
 
-<button>DOWNLOAD EXCEL</button>
+<button onclick="downloadExcel()">
+DOWNLOAD EXCEL
+</button>
 
 </div>
 
 </div>
 
 <script>
+
+/* DATA */
+
+let stok=0;
+let isAdmin=false;
 
 /* LOGIN */
 
@@ -442,14 +468,93 @@ let password=document.getElementById("password").value;
 
 if(username==="admin" && password==="12345"){
 
+isAdmin=true;
+
 document.getElementById("loginPage").style.display="none";
+
 document.getElementById("dashboard").style.display="block";
+
+/* TAMPILKAN DOWNLOAD */
+
+document.getElementById("downloadAdmin").style.display="block";
 
 }else{
 
-document.getElementById("error").innerHTML="Username atau Password Salah!";
+document.getElementById("error").innerHTML=
+"Username atau Password Salah!";
 
 }
+
+}
+
+/* TAMBAH PRODUKSI */
+
+function tambahProduksi(){
+
+let bibit=
+document.getElementById("produksiBibit").value;
+
+let jumlah=
+document.getElementById("jumlahProduksi").value;
+
+if(bibit=="" || jumlah==""){
+
+alert("Lengkapi data produksi!");
+return;
+
+}
+
+/* HAPUS DATA KOSONG */
+
+let kosong=
+document.getElementById("produksiKosong");
+
+if(kosong){
+
+kosong.remove();
+
+}
+
+/* TAMBAH KE TABEL */
+
+let tabel=
+document.getElementById("tabelProduksi");
+
+let row=
+tabel.insertRow();
+
+row.innerHTML=`
+
+<td>${bibit}</td>
+<td>${jumlah}</td>
+
+`;
+
+/* UPDATE PRODUKSI */
+
+let totalProduksi=
+parseInt(document.getElementById("totalProduksi").innerHTML);
+
+totalProduksi += parseInt(jumlah);
+
+document.getElementById("totalProduksi").innerHTML=
+totalProduksi;
+
+/* UPDATE STOK */
+
+stok += parseInt(jumlah);
+
+document.getElementById("sisaStok").innerHTML=
+stok;
+
+/* RESET */
+
+document.getElementById("produksiBibit").value="";
+document.getElementById("jumlahProduksi").value="";
+
+/* NOTIFIKASI */
+
+alert("Produksi berhasil ditambahkan!");
 
 }
 
@@ -482,7 +587,16 @@ return;
 
 }
 
-/* HAPUS TULISAN KOSONG */
+/* CEK STOK */
+
+if(parseInt(jumlah) > stok){
+
+alert("Stok bibit tidak cukup!");
+return;
+
+}
+
+/* HAPUS DATA KOSONG */
 
 let kosong=document.getElementById("kosong");
 
@@ -490,7 +604,7 @@ if(kosong){
 kosong.remove();
 }
 
-/* MASUKKAN DATA */
+/* TAMBAH DATA */
 
 let tabel=document.getElementById("tabelDistribusi");
 
@@ -509,11 +623,7 @@ row.innerHTML=`
 
 `;
 
-/* RESET FORM */
-
-document.getElementById("formPermintaan").reset();
-
-/* UPDATE TOTAL */
+/* UPDATE DISTRIBUSI */
 
 let totalDistribusi=
 parseInt(document.getElementById("totalDistribusi").innerHTML);
@@ -523,9 +633,36 @@ totalDistribusi += parseInt(jumlah);
 document.getElementById("totalDistribusi").innerHTML=
 totalDistribusi;
 
+/* UPDATE STOK */
+
+stok -= parseInt(jumlah);
+
+document.getElementById("sisaStok").innerHTML=
+stok;
+
+/* RESET FORM */
+
+document.getElementById("formPermintaan").reset();
+
 /* NOTIFIKASI */
 
 alert("Permintaan berhasil dikirim!");
+
+}
+
+/* DOWNLOAD EXCEL */
+
+function downloadExcel(){
+
+if(isAdmin){
+
+alert("Download Excel berhasil!");
+
+}else{
+
+alert("Hanya admin yang bisa download Excel!");
+
+}
 
 }
 
