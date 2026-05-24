@@ -142,7 +142,7 @@ color:#2e7d32;
 font-size:35px;
 }
 
-/* FORM MASYARAKAT */
+/* FORM */
 
 .input-box{
 background:white;
@@ -294,22 +294,22 @@ cursor:pointer;
 
 <div class="card">
 <h3>Total Produksi</h3>
-<h1>0</h1>
+<h1 id="totalProduksi">0</h1>
 </div>
 
 <div class="card">
 <h3>Total Distribusi</h3>
-<h1>0</h1>
+<h1 id="totalDistribusi">0</h1>
 </div>
 
 <div class="card">
 <h3>Sisa Stok</h3>
-<h1>0</h1>
+<h1 id="sisaStok">0</h1>
 </div>
 
 <div class="card">
 <h3>Persen Capaian</h3>
-<h1>0%</h1>
+<h1 id="persen">0%</h1>
 </div>
 
 </div>
@@ -320,33 +320,42 @@ cursor:pointer;
 
 <h2>FORM PENGAMBILAN BIBIT</h2>
 
+<form id="formPermintaan">
+
 <div class="form-grid">
 
-<input type="text" placeholder="Nama Lengkap">
+<input id="nama" type="text" placeholder="Nama Lengkap">
 
-<input type="text" placeholder="NIK">
+<input id="nik" type="text" placeholder="NIK">
 
-<input type="text" placeholder="Alamat">
+<input id="alamat" type="text" placeholder="Alamat">
 
-<input type="text" placeholder="Nomor HP">
+<input id="hp" type="text" placeholder="Nomor HP">
 
-<input type="text" placeholder="Jenis Bibit">
+<input id="bibit" type="text" placeholder="Jenis Bibit">
 
-<input type="number" placeholder="Jumlah Bibit">
+<input id="jumlah" type="number" placeholder="Jumlah Bibit">
 
 <input type="file">
 
-<textarea placeholder="Tujuan Penanaman"></textarea>
+<textarea id="tujuan" placeholder="Tujuan Penanaman"></textarea>
 
 </div>
 
 <div class="button-group">
 
-<button class="btn-produksi">
+<button
+type="button"
+class="btn-produksi"
+onclick="kirimPermintaan()">
+
 Kirim Permintaan Bibit
+
 </button>
 
 </div>
+
+</form>
 
 </div>
 
@@ -378,7 +387,7 @@ Kirim Permintaan Bibit
 </tr>
 
 <tr>
-<td colspan="16">Belum ada data</td>
+<td colspan="16">Belum ada data produksi</td>
 </tr>
 
 </table>
@@ -389,9 +398,9 @@ Kirim Permintaan Bibit
 
 <div class="table-box">
 
-<h2>DATA DISTRIBUSI</h2>
+<h2>DATA DISTRIBUSI MASYARAKAT</h2>
 
-<table>
+<table id="tabelDistribusi">
 
 <tr>
 <th>Nama</th>
@@ -404,7 +413,7 @@ Kirim Permintaan Bibit
 <th>Status</th>
 </tr>
 
-<tr>
+<tr id="kosong">
 <td colspan="8">Belum ada permintaan bibit</td>
 </tr>
 
@@ -424,6 +433,8 @@ Kirim Permintaan Bibit
 
 <script>
 
+/* LOGIN */
+
 function login(){
 
 let username=document.getElementById("username").value;
@@ -439,6 +450,82 @@ document.getElementById("dashboard").style.display="block";
 document.getElementById("error").innerHTML="Username atau Password Salah!";
 
 }
+
+}
+
+/* KIRIM PERMINTAAN */
+
+function kirimPermintaan(){
+
+let nama=document.getElementById("nama").value;
+let nik=document.getElementById("nik").value;
+let alamat=document.getElementById("alamat").value;
+let hp=document.getElementById("hp").value;
+let bibit=document.getElementById("bibit").value;
+let jumlah=document.getElementById("jumlah").value;
+let tujuan=document.getElementById("tujuan").value;
+
+/* VALIDASI */
+
+if(
+nama=="" ||
+nik=="" ||
+alamat=="" ||
+hp=="" ||
+bibit=="" ||
+jumlah=="" ||
+tujuan==""
+){
+
+alert("Lengkapi semua data!");
+return;
+
+}
+
+/* HAPUS TULISAN KOSONG */
+
+let kosong=document.getElementById("kosong");
+
+if(kosong){
+kosong.remove();
+}
+
+/* MASUKKAN DATA */
+
+let tabel=document.getElementById("tabelDistribusi");
+
+let row=tabel.insertRow();
+
+row.innerHTML=`
+
+<td>${nama}</td>
+<td>${nik}</td>
+<td>${alamat}</td>
+<td>${hp}</td>
+<td>${bibit}</td>
+<td>${jumlah}</td>
+<td>${tujuan}</td>
+<td>Menunggu</td>
+
+`;
+
+/* RESET FORM */
+
+document.getElementById("formPermintaan").reset();
+
+/* UPDATE TOTAL */
+
+let totalDistribusi=
+parseInt(document.getElementById("totalDistribusi").innerHTML);
+
+totalDistribusi += parseInt(jumlah);
+
+document.getElementById("totalDistribusi").innerHTML=
+totalDistribusi;
+
+/* NOTIFIKASI */
+
+alert("Permintaan berhasil dikirim!");
 
 }
 
