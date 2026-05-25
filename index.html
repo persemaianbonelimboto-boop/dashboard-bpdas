@@ -49,7 +49,7 @@ margin-bottom:15px;
 
 .login-box h1{
 color:#2e7d32;
-font-size:45px;
+font-size:50px;
 margin-bottom:10px;
 }
 
@@ -66,6 +66,7 @@ margin-top:15px;
 border-radius:15px;
 border:1px solid #ccc;
 font-size:16px;
+outline:none;
 }
 
 .login-box button{
@@ -76,7 +77,7 @@ border:none;
 border-radius:15px;
 background:#2e7d32;
 color:white;
-font-size:20px;
+font-size:22px;
 font-weight:bold;
 cursor:pointer;
 }
@@ -117,6 +118,7 @@ margin-bottom:10px;
 
 .header h2{
 color:#444;
+font-size:20px;
 }
 
 /* CARD */
@@ -299,21 +301,23 @@ cursor:pointer;
 
 </div>
 
+<!-- CARD -->
+
 <div class="cards">
 
 <div class="card">
 <h3>Total Produksi</h3>
-<h1 id="totalProduksi">Online</h1>
+<h1 id="totalProduksi">0</h1>
 </div>
 
 <div class="card">
 <h3>Total Distribusi</h3>
-<h1 id="totalDistribusi">Online</h1>
+<h1 id="totalDistribusi">0</h1>
 </div>
 
 <div class="card">
-<h3>Status Database</h3>
-<h1 id="sisaStok">Aktif</h1>
+<h3>Sisa Stok</h3>
+<h1 id="sisaStok">0</h1>
 </div>
 
 </div>
@@ -346,11 +350,32 @@ Tambah Produksi
 
 </div>
 
-<!-- DISTRIBUSI -->
+<!-- DATA PRODUKSI -->
 
 <div class="table-box">
 
-<h2>DATA DISTRIBUSI ONLINE</h2>
+<h2>DATA PRODUKSI</h2>
+
+<table id="tabelProduksi">
+
+<tr>
+<th>Nama Bibit</th>
+<th>Jumlah Produksi</th>
+</tr>
+
+<tr id="produksiKosong">
+<td colspan="2">Belum ada data produksi</td>
+</tr>
+
+</table>
+
+</div>
+
+<!-- DATA DISTRIBUSI -->
+
+<div class="table-box">
+
+<h2>DATA DISTRIBUSI MASYARAKAT</h2>
 
 <table id="tabelDistribusi">
 
@@ -365,7 +390,21 @@ Tambah Produksi
 <th>Status</th>
 </tr>
 
+<tr id="kosong">
+<td colspan="8">Belum ada permintaan bibit</td>
+</tr>
+
 </table>
+
+</div>
+
+<!-- DOWNLOAD -->
+
+<div class="download">
+
+<button onclick="downloadExcel()">
+DOWNLOAD EXCEL
+</button>
 
 </div>
 
@@ -430,58 +469,48 @@ Kirim Permintaan Bibit
 
 <script>
 
-/* API */
+/* DATA */
 
-const API_URL =
-"https://script.google.com/macros/s/AKfycbwY26ZtuhUSz2BhV5Bt3VDcPEGsJkLuieSUuRdOuzzvRgEfdoRJ0sYFCEQ2VSgPXxA5ow/exec";
+let stok=0;
 
 /* LOGIN */
 
-async function login(){
+function login(){
 
-let username =
+let username=
 document.getElementById("username").value;
 
-let password =
+let password=
 document.getElementById("password").value;
 
-let response = await fetch(API_URL,{
+/* ADMIN */
 
-method:"POST",
-
-body:JSON.stringify({
-
-action:"login",
-
-username:username,
-
-password:password
-
-})
-
-});
-
-let data = await response.json();
-
-if(data.status==true){
+if(username==="admin" && password==="12345"){
 
 document.getElementById("loginPage").style.display="none";
 
-if(data.role=="admin"){
-
 document.getElementById("adminPage").style.display="block";
 
-loadDistribusi();
+}
 
-}else{
+/* MASYARAKAT */
+
+else if(
+username==="masyarakat" &&
+password==="masyarakat"
+){
+
+document.getElementById("loginPage").style.display="none";
 
 document.getElementById("masyarakatPage").style.display="block";
 
 }
 
-}else{
+/* SALAH */
 
-document.getElementById("error").innerHTML =
+else{
+
+document.getElementById("error").innerHTML=
 "Username atau Password Salah!";
 
 }
@@ -490,12 +519,12 @@ document.getElementById("error").innerHTML =
 
 /* PRODUKSI */
 
-async function tambahProduksi(){
+function tambahProduksi(){
 
-let bibit =
+let bibit=
 document.getElementById("produksiBibit").value;
 
-let jumlah =
+let jumlah=
 document.getElementById("jumlahProduksi").value;
 
 if(bibit=="" || jumlah==""){
@@ -505,53 +534,59 @@ return;
 
 }
 
-await fetch(API_URL,{
+let kosong=
+document.getElementById("produksiKosong");
 
-method:"POST",
+if(kosong){
 
-body:JSON.stringify({
+kosong.remove();
 
-action:"produksi",
+}
 
-namaBibit:bibit,
+let tabel=
+document.getElementById("tabelProduksi");
 
-jumlahProduksi:jumlah
+let row=
+tabel.insertRow();
 
-})
+row.innerHTML=`
 
-});
+<td>${bibit}</td>
+<td>${jumlah}</td>
 
-alert("Produksi berhasil ditambahkan!");
+`;
+
+let totalProduksi=
+parseInt(document.getElementById("totalProduksi").innerHTML);
+
+totalProduksi += parseInt(jumlah);
+
+document.getElementById("totalProduksi").innerHTML=
+totalProduksi;
+
+stok += parseInt(jumlah);
+
+document.getElementById("sisaStok").innerHTML=
+stok;
 
 document.getElementById("produksiBibit").value="";
 document.getElementById("jumlahProduksi").value="";
+
+alert("Produksi berhasil ditambahkan!");
 
 }
 
 /* DISTRIBUSI */
 
-async function kirimPermintaan(){
+function kirimPermintaan(){
 
-let nama =
-document.getElementById("nama").value;
-
-let nik =
-document.getElementById("nik").value;
-
-let alamat =
-document.getElementById("alamat").value;
-
-let hp =
-document.getElementById("hp").value;
-
-let bibit =
-document.getElementById("bibit").value;
-
-let jumlah =
-document.getElementById("jumlah").value;
-
-let tujuan =
-document.getElementById("tujuan").value;
+let nama=document.getElementById("nama").value;
+let nik=document.getElementById("nik").value;
+let alamat=document.getElementById("alamat").value;
+let hp=document.getElementById("hp").value;
+let bibit=document.getElementById("bibit").value;
+let jumlah=document.getElementById("jumlah").value;
+let tujuan=document.getElementById("tujuan").value;
 
 if(
 nama=="" ||
@@ -568,80 +603,60 @@ return;
 
 }
 
-await fetch(API_URL,{
+if(parseInt(jumlah) > stok){
 
-method:"POST",
-
-body:JSON.stringify({
-
-action:"distribusi",
-
-nama:nama,
-
-nik:nik,
-
-alamat:alamat,
-
-hp:hp,
-
-bibit:bibit,
-
-jumlah:jumlah,
-
-tujuan:tujuan
-
-})
-
-});
-
-alert("Permintaan berhasil dikirim!");
-
-document
-.getElementById("formPermintaan")
-.reset();
+alert("Stok bibit tidak cukup!");
+return;
 
 }
 
-/* LOAD DATA */
+let kosong=document.getElementById("kosong");
 
-async function loadDistribusi(){
+if(kosong){
+kosong.remove();
+}
 
-let response = await fetch(API_URL,{
+let tabel=document.getElementById("tabelDistribusi");
 
-method:"POST",
+let row=tabel.insertRow();
 
-body:JSON.stringify({
+row.innerHTML=`
 
-action:"getDistribusi"
-
-})
-
-});
-
-let data = await response.json();
-
-let tabel =
-document.getElementById("tabelDistribusi");
-
-for(let i=1;i<data.length;i++){
-
-let row =
-tabel.insertRow();
-
-row.innerHTML = `
-
-<td>${data[i][1]}</td>
-<td>${data[i][2]}</td>
-<td>${data[i][3]}</td>
-<td>${data[i][4]}</td>
-<td>${data[i][5]}</td>
-<td>${data[i][6]}</td>
-<td>${data[i][7]}</td>
-<td>${data[i][8]}</td>
+<td>${nama}</td>
+<td>${nik}</td>
+<td>${alamat}</td>
+<td>${hp}</td>
+<td>${bibit}</td>
+<td>${jumlah}</td>
+<td>${tujuan}</td>
+<td>Menunggu</td>
 
 `;
 
+let totalDistribusi=
+parseInt(document.getElementById("totalDistribusi").innerHTML);
+
+totalDistribusi += parseInt(jumlah);
+
+document.getElementById("totalDistribusi").innerHTML=
+totalDistribusi;
+
+stok -= parseInt(jumlah);
+
+document.getElementById("sisaStok").innerHTML=
+stok;
+
+document.getElementById("formPermintaan").reset();
+
+alert("Permintaan berhasil dikirim!");
+
 }
+
+/* DOWNLOAD */
+
+function downloadExcel(){
+
+alert("Download Excel berhasil!");
 
 }
 
