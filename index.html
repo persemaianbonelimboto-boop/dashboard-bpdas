@@ -656,7 +656,52 @@ alert("Permintaan berhasil dikirim!");
 
 function downloadExcel(){
 
-alert("Download Excel berhasil!");
+let data = `
+<table border="1">
+
+<tr>
+<th>Nama</th>
+<th>NIK</th>
+<th>Alamat</th>
+<th>No HP</th>
+<th>Jenis Bibit</th>
+<th>Jumlah</th>
+<th>Tujuan</th>
+<th>Status</th>
+</tr>
+`;
+
+let rows =
+document.querySelectorAll("#tabelDistribusi tr");
+
+for(let i=1; i<rows.length; i++){
+
+data += rows[i].outerHTML;
+
+}
+
+data += `</table>`;
+
+let blob = new Blob(
+[data],
+{
+type:"application/vnd.ms-excel"
+}
+);
+
+let url =
+window.URL.createObjectURL(blob);
+
+let a =
+document.createElement("a");
+
+a.href = url;
+
+a.download = "data-bibit.xls";
+
+a.click();
+
+window.URL.revokeObjectURL(url);
 
 }
 
