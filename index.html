@@ -35,7 +35,7 @@ padding:20px;
 .login-box{
 background:rgba(255,255,255,0.95);
 width:100%;
-max-width:380px;
+max-width:400px;
 padding:35px;
 border-radius:25px;
 text-align:center;
@@ -49,7 +49,7 @@ margin-bottom:15px;
 
 .login-box h1{
 color:#2e7d32;
-font-size:50px;
+font-size:45px;
 margin-bottom:10px;
 }
 
@@ -89,7 +89,7 @@ cursor:pointer;
 display:none;
 padding:20px;
 background-image:
-linear-gradient(rgba(46,125,50,0.82),rgba(46,125,50,0.82)),
+linear-gradient(rgba(46,125,50,0.85),rgba(46,125,50,0.85)),
 url('dashboard.jpg');
 
 background-size:cover;
@@ -99,7 +99,7 @@ min-height:100vh;
 }
 
 .header{
-background:rgba(255,255,255,0.94);
+background:rgba(255,255,255,0.95);
 padding:25px;
 border-radius:25px;
 text-align:center;
@@ -170,7 +170,8 @@ gap:15px;
 }
 
 .form-grid input,
-.form-grid textarea{
+.form-grid textarea,
+.form-grid select{
 padding:14px;
 border-radius:12px;
 border:1px solid #ccc;
@@ -241,21 +242,37 @@ padding:10px;
 text-align:center;
 }
 
-/* DOWNLOAD */
-
-.download{
-text-align:center;
+.status-menunggu{
+color:orange;
+font-weight:bold;
 }
 
-.download button{
-padding:15px 35px;
-background:#2e7d32;
-border:none;
-border-radius:12px;
-color:white;
-font-size:16px;
+.status-acc{
+color:green;
 font-weight:bold;
+}
+
+.status-tolak{
+color:red;
+font-weight:bold;
+}
+
+.action-btn{
+padding:8px 15px;
+border:none;
+border-radius:10px;
+color:white;
 cursor:pointer;
+margin:2px;
+font-weight:bold;
+}
+
+.acc-btn{
+background:green;
+}
+
+.tolak-btn{
+background:red;
 }
 
 </style>
@@ -306,8 +323,13 @@ cursor:pointer;
 <div class="cards">
 
 <div class="card">
-<h3>Total Produksi</h3>
-<h1 id="totalProduksi">0</h1>
+<h3>Total Jenis Bibit</h3>
+<h1 id="totalBibit">0</h1>
+</div>
+
+<div class="card">
+<h3>Total Stok</h3>
+<h1 id="totalStok">0</h1>
 </div>
 
 <div class="card">
@@ -315,14 +337,9 @@ cursor:pointer;
 <h1 id="totalDistribusi">0</h1>
 </div>
 
-<div class="card">
-<h3>Sisa Stok</h3>
-<h1 id="sisaStok">0</h1>
 </div>
 
-</div>
-
-<!-- PRODUKSI -->
+<!-- INPUT PRODUKSI -->
 
 <div class="input-box">
 
@@ -350,49 +367,58 @@ Tambah Produksi
 
 </div>
 
-<!-- DATA PRODUKSI -->
+<!-- DATA STOK -->
 
 <div class="table-box">
 
-<h2>DATA PRODUKSI</h2>
+<h2>DATA STOK BIBIT</h2>
 
-<table id="tabelProduksi">
+<table>
+
+<thead>
 
 <tr>
 <th>Nama Bibit</th>
-<th>Jumlah Produksi</th>
+<th>Stok</th>
 </tr>
 
-<tr id="produksiKosong">
-<td colspan="2">Belum ada data produksi</td>
-</tr>
+</thead>
+
+<tbody id="stokBody">
+
+</tbody>
 
 </table>
 
 </div>
 
-<!-- DATA DISTRIBUSI -->
+<!-- DISTRIBUSI -->
 
 <div class="table-box">
 
-<h2>DATA DISTRIBUSI MASYARAKAT</h2>
+<h2>PERMINTAAN DISTRIBUSI</h2>
 
-<table id="tabelDistribusi">
+<table>
+
+<thead>
 
 <tr>
 <th>Nama</th>
 <th>NIK</th>
 <th>Alamat</th>
 <th>No HP</th>
-<th>Jenis Bibit</th>
+<th>Bibit</th>
 <th>Jumlah</th>
 <th>Tujuan</th>
 <th>Status</th>
+<th>Aksi</th>
 </tr>
 
-<tr id="kosong">
-<td colspan="8">Belum ada permintaan bibit</td>
-</tr>
+</thead>
+
+<tbody id="distribusiBody">
+
+</tbody>
 
 </table>
 
@@ -428,7 +454,11 @@ Tambah Produksi
 
 <input id="hp" type="text" placeholder="Nomor HP">
 
-<input id="bibit" type="text" placeholder="Jenis Bibit">
+<select id="bibit">
+
+<option value="">Pilih Bibit</option>
+
+</select>
 
 <input id="jumlah" type="number" placeholder="Jumlah Bibit">
 
@@ -457,14 +487,10 @@ Kirim Permintaan Bibit
 
 <script>
 
-/* GOOGLE APPS SCRIPT */
+/* API */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbxE4cICNnxhhrz7rFPrMiHmwfkiWiV7mZfC92dF7omW0Q4CGvr-2eGcsOxJSRBRzY0z7A/exec";
-
-/* DATA */
-
-let stok = 0;
+"https://script.google.com/macros/s/AKfycbyzVj8QhYlLXd8T3m185gsLnuPnIkhfuBNEIXnqtM0lPI1aJv3NHY7HQ7XPnH1DHM7r1g/exec";
 
 /* LOGIN */
 
@@ -484,6 +510,9 @@ document.getElementById("loginPage").style.display="none";
 
 document.getElementById("adminPage").style.display="block";
 
+loadStok();
+loadDistribusi();
+
 }
 
 /* MASYARAKAT */
@@ -497,9 +526,11 @@ document.getElementById("loginPage").style.display="none";
 
 document.getElementById("masyarakatPage").style.display="block";
 
+loadBibitDropdown();
+
 }
 
-/* SALAH */
+/* ERROR */
 
 else{
 
@@ -507,6 +538,80 @@ document.getElementById("error").innerHTML =
 "Username atau Password Salah!";
 
 }
+
+}
+
+/* LOAD STOK */
+
+async function loadStok(){
+
+const response =
+await fetch(API_URL + "?action=getStok");
+
+const data =
+await response.json();
+
+let body =
+document.getElementById("stokBody");
+
+body.innerHTML = "";
+
+let totalStok = 0;
+
+data.forEach(item=>{
+
+totalStok += Number(item.stok);
+
+body.innerHTML += `
+
+<tr>
+<td>${item.bibit}</td>
+<td>${item.stok}</td>
+</tr>
+
+`;
+
+});
+
+document.getElementById("totalBibit").innerHTML =
+data.length;
+
+document.getElementById("totalStok").innerHTML =
+totalStok;
+
+}
+
+/* LOAD DROPDOWN */
+
+async function loadBibitDropdown(){
+
+const response =
+await fetch(API_URL + "?action=getStok");
+
+const data =
+await response.json();
+
+let dropdown =
+document.getElementById("bibit");
+
+dropdown.innerHTML =
+'<option value="">Pilih Bibit</option>';
+
+data.forEach(item=>{
+
+if(item.stok > 0){
+
+dropdown.innerHTML += `
+
+<option value="${item.bibit}">
+${item.bibit} (Stok: ${item.stok})
+</option>
+
+`;
+
+}
+
+});
 
 }
 
@@ -522,12 +627,10 @@ document.getElementById("jumlahProduksi").value;
 
 if(bibit=="" || jumlah==""){
 
-alert("Lengkapi data produksi!");
+alert("Lengkapi data!");
 return;
 
 }
-
-try{
 
 await fetch(API_URL,{
 
@@ -543,65 +646,39 @@ jumlah:jumlah
 
 });
 
-let kosong =
-document.getElementById("produksiKosong");
-
-if(kosong){
-
-kosong.remove();
-
-}
-
-let tabel =
-document.getElementById("tabelProduksi");
-
-let row =
-tabel.insertRow();
-
-row.innerHTML=`
-
-<td>${bibit}</td>
-<td>${jumlah}</td>
-
-`;
-
-let totalProduksi =
-parseInt(document.getElementById("totalProduksi").innerHTML);
-
-totalProduksi += parseInt(jumlah);
-
-document.getElementById("totalProduksi").innerHTML =
-totalProduksi;
-
-stok += parseInt(jumlah);
-
-document.getElementById("sisaStok").innerHTML =
-stok;
+alert("Produksi berhasil!");
 
 document.getElementById("produksiBibit").value="";
 document.getElementById("jumlahProduksi").value="";
 
-alert("Produksi berhasil ditambahkan!");
-
-}catch(error){
-
-alert("Gagal mengirim data!");
+loadStok();
 
 }
 
-}
-
-/* KIRIM PERMINTAAN */
+/* KIRIM DISTRIBUSI */
 
 async function kirimPermintaan(){
 
-let nama=document.getElementById("nama").value;
-let nik=document.getElementById("nik").value;
-let alamat=document.getElementById("alamat").value;
-let hp=document.getElementById("hp").value;
-let bibit=document.getElementById("bibit").value;
-let jumlah=document.getElementById("jumlah").value;
-let tujuan=document.getElementById("tujuan").value;
+let nama =
+document.getElementById("nama").value;
+
+let nik =
+document.getElementById("nik").value;
+
+let alamat =
+document.getElementById("alamat").value;
+
+let hp =
+document.getElementById("hp").value;
+
+let bibit =
+document.getElementById("bibit").value;
+
+let jumlah =
+document.getElementById("jumlah").value;
+
+let tujuan =
+document.getElementById("tujuan").value;
 
 if(
 nama=="" ||
@@ -618,15 +695,7 @@ return;
 
 }
 
-if(parseInt(jumlah) > stok){
-
-alert("Stok bibit tidak cukup!");
-return;
-
-}
-
-try{
-
+const response =
 await fetch(API_URL,{
 
 method:"POST",
@@ -646,53 +715,155 @@ tujuan:tujuan
 
 });
 
-let kosong=document.getElementById("kosong");
+const result =
+await response.json();
 
-if(kosong){
-kosong.remove();
+if(result.status == "error"){
+
+alert(result.message);
+return;
+
 }
-
-let tabel=document.getElementById("tabelDistribusi");
-
-let row=tabel.insertRow();
-
-row.innerHTML=`
-
-<td>${nama}</td>
-<td>${nik}</td>
-<td>${alamat}</td>
-<td>${hp}</td>
-<td>${bibit}</td>
-<td>${jumlah}</td>
-<td>${tujuan}</td>
-<td>Menunggu</td>
-
-`;
-
-let totalDistribusi =
-parseInt(document.getElementById("totalDistribusi").innerHTML);
-
-totalDistribusi += parseInt(jumlah);
-
-document.getElementById("totalDistribusi").innerHTML =
-totalDistribusi;
-
-stok -= parseInt(jumlah);
-
-document.getElementById("sisaStok").innerHTML =
-stok;
-
-document.getElementById("formPermintaan").reset();
 
 alert("Permintaan berhasil dikirim!");
 
-}catch(error){
+document.getElementById("formPermintaan").reset();
 
-alert("Gagal mengirim data!");
+loadBibitDropdown();
+
+}
+
+/* LOAD DISTRIBUSI */
+
+async function loadDistribusi(){
+
+const response =
+await fetch(API_URL + "?action=getDistribusi");
+
+const data =
+await response.json();
+
+let body =
+document.getElementById("distribusiBody");
+
+body.innerHTML = "";
+
+let total = 0;
+
+data.forEach(item=>{
+
+if(item.status == "ACC"){
+
+total += Number(item.jumlah);
 
 }
 
+let statusClass = "";
+
+if(item.status == "Menunggu"){
+
+statusClass = "status-menunggu";
+
 }
+
+if(item.status == "ACC"){
+
+statusClass = "status-acc";
+
+}
+
+if(item.status == "Tolak"){
+
+statusClass = "status-tolak";
+
+}
+
+body.innerHTML += `
+
+<tr>
+
+<td>${item.nama}</td>
+<td>${item.nik}</td>
+<td>${item.alamat}</td>
+<td>${item.hp}</td>
+<td>${item.bibit}</td>
+<td>${item.jumlah}</td>
+<td>${item.tujuan}</td>
+
+<td class="${statusClass}">
+${item.status}
+</td>
+
+<td>
+
+<button
+class="action-btn acc-btn"
+onclick="updateStatus('${item.id}','ACC')">
+
+ACC
+
+</button>
+
+<button
+class="action-btn tolak-btn"
+onclick="updateStatus('${item.id}','Tolak')">
+
+Tolak
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("totalDistribusi").innerHTML =
+total;
+
+}
+
+/* UPDATE STATUS */
+
+async function updateStatus(id,status){
+
+await fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+type:"updateStatus",
+id:id,
+status:status
+
+})
+
+});
+
+alert("Status berhasil diupdate!");
+
+loadDistribusi();
+loadStok();
+
+}
+
+/* AUTO REFRESH */
+
+setInterval(()=>{
+
+if(
+document.getElementById("adminPage").style.display=="block"
+){
+
+loadStok();
+loadDistribusi();
+
+}
+
+},5000);
 
 </script>
 
