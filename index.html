@@ -121,6 +121,20 @@ color:#444;
 font-size:20px;
 }
 
+/* LOGOUT */
+
+.logout-btn{
+padding:12px 25px;
+border:none;
+border-radius:12px;
+background:red;
+color:white;
+font-weight:bold;
+cursor:pointer;
+font-size:15px;
+margin-top:15px;
+}
+
 /* CARD */
 
 .cards{
@@ -316,6 +330,10 @@ background:red;
 
 <h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
 
+<button class="logout-btn" onclick="logout()">
+LOGOUT
+</button>
+
 </div>
 
 <!-- CARD -->
@@ -438,6 +456,10 @@ Tambah Produksi
 
 <h2>BPDAS Bone Limboto</h2>
 
+<button class="logout-btn" onclick="logout()">
+LOGOUT
+</button>
+
 </div>
 
 <div class="input-box">
@@ -490,7 +512,7 @@ Kirim Permintaan Bibit
 /* API */
 
 const API_URL =
-"https://script.google.com/macros/library/d/1F5eF2SkjWB4kphf0Gi5zBURvsaxxpvhIeqabzIGxgi6bUkvNW5ZdWlH4/2";
+"https://script.google.com/macros/s/AKfycbyzVj8QhYlLXd8T3m185gsLnuPnIkhfuBNEIXnqtM0lPI1aJv3NHY7HQ7XPnH1DHM7r1g/exec";
 
 /* LOGIN */
 
@@ -502,8 +524,6 @@ document.getElementById("username").value;
 let password =
 document.getElementById("password").value;
 
-/* ADMIN */
-
 if(username==="admin" && password==="12345"){
 
 document.getElementById("loginPage").style.display="none";
@@ -514,8 +534,6 @@ loadStok();
 loadDistribusi();
 
 }
-
-/* MASYARAKAT */
 
 else if(
 username==="masyarakat" &&
@@ -530,14 +548,33 @@ loadBibitDropdown();
 
 }
 
-/* ERROR */
-
 else{
 
 document.getElementById("error").innerHTML =
 "Username atau Password Salah!";
 
 }
+
+}
+
+/* LOGOUT */
+
+function logout(){
+
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("masyarakatPage").style.display =
+"none";
+
+document.getElementById("loginPage").style.display =
+"flex";
+
+document.getElementById("username").value = "";
+
+document.getElementById("password").value = "";
+
+document.getElementById("error").innerHTML = "";
 
 }
 
@@ -761,21 +798,15 @@ total += Number(item.jumlah);
 let statusClass = "";
 
 if(item.status == "Menunggu"){
-
 statusClass = "status-menunggu";
-
 }
 
 if(item.status == "ACC"){
-
 statusClass = "status-acc";
-
 }
 
 if(item.status == "Tolak"){
-
 statusClass = "status-tolak";
-
 }
 
 body.innerHTML += `
