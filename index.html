@@ -330,6 +330,14 @@ background:red;
 
 <h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
 
+<br>
+
+<button onclick="logout()">
+
+LOGOUT
+
+</button>
+
 <button class="logout-btn" onclick="logout()">
 
 LOGOUT
@@ -457,6 +465,14 @@ Tambah Produksi
 <h1>FORM PENGAMBILAN BIBIT</h1>
 
 <h2>BPDAS Bone Limboto</h2>
+
+<br>
+
+<button onclick="logout()">
+
+LOGOUT
+
+</button>
 
 <button class="logout-btn" onclick="logout()">
 
@@ -899,7 +915,18 @@ loadDistribusi();
 }
 
 },5000);
+function logout(){
 
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("masyarakatPage").style.display =
+"none";
+
+document.getElementById("loginPage").style.display =
+"flex";
+
+}
 </script>
 
 </body>
