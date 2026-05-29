@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -332,7 +331,9 @@ background:red;
 <h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
 
 <button class="logout-btn" onclick="logout()">
+
 LOGOUT
+
 </button>
 
 </div>
@@ -397,7 +398,9 @@ Tambah Produksi
 
 </thead>
 
-<tbody id="stokBody"></tbody>
+<tbody id="stokBody">
+
+</tbody>
 
 </table>
 
@@ -425,7 +428,9 @@ Tambah Produksi
 
 </thead>
 
-<tbody id="distribusiBody"></tbody>
+<tbody id="distribusiBody">
+
+</tbody>
 
 </table>
 
@@ -446,7 +451,9 @@ Tambah Produksi
 <h2>BPDAS Bone Limboto</h2>
 
 <button class="logout-btn" onclick="logout()">
+
 LOGOUT
+
 </button>
 
 </div>
@@ -494,42 +501,12 @@ Kirim Permintaan Bibit
 
 </div>
 
-<!-- RIWAYAT -->
-
-<div class="table-box">
-
-<h2>STATUS PERMINTAAN BIBIT</h2>
-
-<table>
-
-<thead>
-
-<tr>
-<th>Nama</th>
-<th>NIK</th>
-<th>Bibit</th>
-<th>Jumlah</th>
-<th>Status</th>
-</tr>
-
-</thead>
-
-<tbody id="riwayatBody"></tbody>
-
-</table>
-
-</div>
-
 </div>
 
 <script>
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbyzVj8QhYlLXd8T3m185gsLnuPnIkhfuBNEIXnqtM0lPI1aJv3NHY7HQ7XPnH1DHM7r1g/exec";
-
-let currentNik = "";
-
-/* LOGIN */
 
 function login(){
 
@@ -572,8 +549,6 @@ document.getElementById("error").innerHTML =
 
 }
 
-/* LOGOUT */
-
 function logout(){
 
 document.getElementById("adminPage").style.display =
@@ -592,8 +567,6 @@ document.getElementById("password").value = "";
 document.getElementById("error").innerHTML = "";
 
 }
-
-/* LOAD STOK */
 
 async function loadStok(){
 
@@ -633,8 +606,6 @@ totalStok;
 
 }
 
-/* LOAD DROPDOWN */
-
 async function loadBibitDropdown(){
 
 const response =
@@ -666,8 +637,6 @@ ${item.bibit} (Stok: ${item.stok})
 });
 
 }
-
-/* TAMBAH PRODUKSI */
 
 async function tambahProduksi(){
 
@@ -707,8 +676,6 @@ loadStok();
 
 }
 
-/* KIRIM DISTRIBUSI */
-
 async function kirimPermintaan(){
 
 let nama =
@@ -731,8 +698,6 @@ document.getElementById("jumlah").value;
 
 let tujuan =
 document.getElementById("tujuan").value;
-
-currentNik = nik;
 
 if(
 nama=="" ||
@@ -784,11 +749,8 @@ alert("Permintaan berhasil dikirim!");
 document.getElementById("formPermintaan").reset();
 
 loadBibitDropdown();
-loadRiwayat();
 
 }
-
-/* LOAD DISTRIBUSI */
 
 async function loadDistribusi(){
 
@@ -808,7 +770,9 @@ let total = 0;
 data.forEach(item=>{
 
 if(item.status == "ACC"){
+
 total += Number(item.jumlah);
+
 }
 
 let statusClass = "";
@@ -872,8 +836,6 @@ total;
 
 }
 
-/* UPDATE STATUS */
-
 async function updateStatus(id,status){
 
 await fetch(API_URL,{
@@ -897,64 +859,6 @@ loadStok();
 
 }
 
-/* LOAD RIWAYAT */
-
-async function loadRiwayat(){
-
-const response =
-await fetch(API_URL + "?action=getDistribusi");
-
-const data =
-await response.json();
-
-let body =
-document.getElementById("riwayatBody");
-
-body.innerHTML = "";
-
-data.forEach(item=>{
-
-if(item.nik == currentNik){
-
-let statusClass = "";
-
-if(item.status == "Menunggu"){
-statusClass = "status-menunggu";
-}
-
-if(item.status == "ACC"){
-statusClass = "status-acc";
-}
-
-if(item.status == "Tolak"){
-statusClass = "status-tolak";
-}
-
-body.innerHTML += `
-
-<tr>
-
-<td>${item.nama}</td>
-<td>${item.nik}</td>
-<td>${item.bibit}</td>
-<td>${item.jumlah}</td>
-
-<td class="${statusClass}">
-${item.status}
-</td>
-
-</tr>
-
-`;
-
-}
-
-});
-
-}
-
-/* AUTO REFRESH */
-
 setInterval(()=>{
 
 if(
@@ -966,19 +870,17 @@ loadDistribusi();
 
 }
 
-if(
-document.getElementById("masyarakatPage").style.display=="block"
-){
-
-loadBibitDropdown();
-loadRiwayat();
-
-}
-
 },5000);
 
 </script>
 
+<link rel="manifest" href="manifest.json">
+
+<script>
+if ("serviceWorker" in navigator) {
+navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
 </body>
 </html>
-```
