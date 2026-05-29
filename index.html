@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -26,30 +27,47 @@ height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#2e7d32;
+background-image:url('login.jpg');
+background-size:cover;
+background-position:center;
 padding:20px;
 }
 
 .login-box{
-background:white;
+background:rgba(255,255,255,0.95);
 width:100%;
 max-width:400px;
-padding:30px;
-border-radius:20px;
+padding:35px;
+border-radius:25px;
 text-align:center;
+box-shadow:0 0 25px rgba(0,0,0,0.25);
+}
+
+.login-logo{
+width:120px;
+margin-bottom:15px;
 }
 
 .login-box h1{
+color:#2e7d32;
+font-size:45px;
 margin-bottom:10px;
-color:#1b5e20;
+}
+
+.login-box p{
+margin-bottom:25px;
+color:#555;
+font-size:18px;
 }
 
 .login-box input{
 width:100%;
 padding:15px;
 margin-top:15px;
-border-radius:10px;
+border-radius:15px;
 border:1px solid #ccc;
+font-size:16px;
+outline:none;
 }
 
 .login-box button{
@@ -57,74 +75,105 @@ width:100%;
 padding:15px;
 margin-top:20px;
 border:none;
+border-radius:15px;
 background:#2e7d32;
 color:white;
-border-radius:10px;
-font-size:18px;
+font-size:22px;
+font-weight:bold;
 cursor:pointer;
 }
 
-/* PAGE */
+/* HALAMAN */
 
 #adminPage,
 #masyarakatPage{
 display:none;
 padding:20px;
-background:#f1f8e9;
+background-image:
+linear-gradient(rgba(46,125,50,0.85),rgba(46,125,50,0.85)),
+url('dashboard.jpg');
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 min-height:100vh;
 }
 
 .header{
-background:white;
-padding:20px;
-border-radius:20px;
-margin-bottom:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
+background:rgba(255,255,255,0.95);
+padding:25px;
+border-radius:25px;
+text-align:center;
+margin-bottom:25px;
 }
 
+.watermark{
+width:110px;
+margin-bottom:15px;
+}
+
+.header h1{
+color:#1b5e20;
+margin-bottom:10px;
+}
+
+.header h2{
+color:#444;
+font-size:20px;
+}
+
+/* LOGOUT */
+
 .logout-btn{
+padding:12px 30px;
+border:none;
+border-radius:12px;
 background:red;
 color:white;
-border:none;
-padding:12px 20px;
-border-radius:10px;
-cursor:pointer;
 font-weight:bold;
+cursor:pointer;
+font-size:16px;
+margin-top:20px;
 }
+
+/* CARD */
 
 .cards{
 display:flex;
-gap:15px;
+gap:20px;
 flex-wrap:wrap;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
 .card{
 background:white;
 flex:1;
-min-width:200px;
-padding:20px;
+min-width:220px;
+padding:25px;
 border-radius:20px;
 text-align:center;
 }
 
+.card h3{
+color:#555;
+margin-bottom:10px;
+}
+
 .card h1{
 color:#2e7d32;
-margin-top:10px;
+font-size:38px;
 }
 
-.box{
+/* FORM */
+
+.input-box{
 background:white;
-padding:20px;
+padding:25px;
 border-radius:20px;
-margin-bottom:20px;
+margin-bottom:25px;
 }
 
-.box h2{
+.input-box h2{
 margin-bottom:20px;
 color:#1b5e20;
 }
@@ -136,46 +185,64 @@ gap:15px;
 }
 
 .form-grid input,
-.form-grid select,
-.form-grid textarea{
+.form-grid textarea,
+.form-grid select{
 padding:14px;
-border-radius:10px;
+border-radius:12px;
 border:1px solid #ccc;
 width:100%;
+font-size:15px;
 }
 
 textarea{
-resize:none;
 min-height:100px;
+resize:none;
 }
 
-button{
-padding:14px 20px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-font-weight:bold;
+.button-group{
+display:flex;
+gap:15px;
+margin-top:20px;
+flex-wrap:wrap;
 }
 
-.btn-green{
+.btn-produksi{
 background:#2e7d32;
-color:white;
 }
 
-.btn-blue{
+.btn-admin{
 background:#1565c0;
-color:white;
 }
 
-.btn-red{
-background:red;
+.button-group button{
+padding:14px 25px;
+border:none;
+border-radius:12px;
 color:white;
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+}
+
+/* TABLE */
+
+.table-box{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:25px;
+overflow:auto;
+}
+
+.table-box h2{
+margin-bottom:20px;
+color:#1b5e20;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:15px;
+min-width:1000px;
 }
 
 table th{
@@ -185,8 +252,8 @@ padding:12px;
 }
 
 table td{
-padding:10px;
 border:1px solid #ddd;
+padding:10px;
 text-align:center;
 }
 
@@ -205,6 +272,24 @@ color:red;
 font-weight:bold;
 }
 
+.action-btn{
+padding:8px 15px;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+margin:2px;
+font-weight:bold;
+}
+
+.acc-btn{
+background:green;
+}
+
+.tolak-btn{
+background:red;
+}
+
 </style>
 </head>
 
@@ -216,7 +301,11 @@ font-weight:bold;
 
 <div class="login-box">
 
+<img class="login-logo" src="logo.png">
+
 <h1>LOGIN</h1>
+
+<p>BPDAS Bone Limboto</p>
 
 <input type="text" id="username" placeholder="Username">
 
@@ -236,10 +325,11 @@ font-weight:bold;
 
 <div class="header">
 
-<div>
+<img class="watermark" src="logo.png">
+
 <h1>DASHBOARD ADMIN</h1>
-<p>BPDAS Bone Limboto</p>
-</div>
+
+<h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
 
 <button class="logout-btn" onclick="logout()">
 LOGOUT
@@ -250,13 +340,8 @@ LOGOUT
 <div class="cards">
 
 <div class="card">
-<h3>Total Produksi</h3>
-<h1 id="totalProduksi">0</h1>
-</div>
-
-<div class="card">
-<h3>Total Distribusi</h3>
-<h1 id="totalDistribusi">0</h1>
+<h3>Total Jenis Bibit</h3>
+<h1 id="totalBibit">0</h1>
 </div>
 
 <div class="card">
@@ -264,31 +349,42 @@ LOGOUT
 <h1 id="totalStok">0</h1>
 </div>
 
+<div class="card">
+<h3>Total Distribusi</h3>
+<h1 id="totalDistribusi">0</h1>
 </div>
 
-<div class="box">
+</div>
 
-<h2>INPUT PRODUKSI</h2>
+<div class="input-box">
+
+<h2>INPUT PRODUKSI BIBIT</h2>
 
 <div class="form-grid">
 
-<input type="text" id="produksiBibit" placeholder="Nama Bibit">
+<input id="produksiBibit" type="text" placeholder="Nama Bibit">
 
-<input type="number" id="jumlahProduksi" placeholder="Jumlah">
+<input id="jumlahProduksi" type="number" placeholder="Jumlah Produksi">
 
 </div>
 
-<br>
+<div class="button-group">
 
-<button class="btn-blue" onclick="tambahProduksi()">
+<button
+class="btn-admin"
+onclick="tambahProduksi()">
+
 Tambah Produksi
+
 </button>
 
 </div>
 
-<div class="box">
+</div>
 
-<h2>DATA STOK</h2>
+<div class="table-box">
+
+<h2>DATA STOK BIBIT</h2>
 
 <table>
 
@@ -301,15 +397,15 @@ Tambah Produksi
 
 </thead>
 
-<tbody id="stokTable"></tbody>
+<tbody id="stokBody"></tbody>
 
 </table>
 
 </div>
 
-<div class="box">
+<div class="table-box">
 
-<h2>DATA DISTRIBUSI</h2>
+<h2>PERMINTAAN DISTRIBUSI</h2>
 
 <table>
 
@@ -318,15 +414,18 @@ Tambah Produksi
 <tr>
 <th>Nama</th>
 <th>NIK</th>
+<th>Alamat</th>
+<th>No HP</th>
 <th>Bibit</th>
 <th>Jumlah</th>
+<th>Tujuan</th>
 <th>Status</th>
 <th>Aksi</th>
 </tr>
 
 </thead>
 
-<tbody id="distribusiTable"></tbody>
+<tbody id="distribusiBody"></tbody>
 
 </table>
 
@@ -340,10 +439,11 @@ Tambah Produksi
 
 <div class="header">
 
-<div>
-<h1>FORM DISTRIBUSI BIBIT</h1>
-<p>BPDAS Bone Limboto</p>
-</div>
+<img class="watermark" src="logo.png">
+
+<h1>FORM PENGAMBILAN BIBIT</h1>
+
+<h2>BPDAS Bone Limboto</h2>
 
 <button class="logout-btn" onclick="logout()">
 LOGOUT
@@ -351,39 +451,54 @@ LOGOUT
 
 </div>
 
-<div class="box">
+<div class="input-box">
 
-<h2>FORM PERMINTAAN</h2>
+<form id="formPermintaan">
 
 <div class="form-grid">
 
-<input type="text" id="nama" placeholder="Nama">
+<input id="nama" type="text" placeholder="Nama Lengkap">
 
-<input type="text" id="nik" placeholder="NIK">
+<input id="nik" type="text" placeholder="NIK">
 
-<input type="text" id="alamat" placeholder="Alamat">
+<input id="alamat" type="text" placeholder="Alamat">
 
-<input type="text" id="hp" placeholder="No HP">
+<input id="hp" type="text" placeholder="Nomor HP">
 
-<select id="bibit"></select>
+<select id="bibit">
 
-<input type="number" id="jumlah" placeholder="Jumlah">
+<option value="">Pilih Bibit</option>
 
-<textarea id="tujuan" placeholder="Tujuan"></textarea>
+</select>
+
+<input id="jumlah" type="number" placeholder="Jumlah Bibit">
+
+<textarea id="tujuan" placeholder="Tujuan Penanaman"></textarea>
 
 </div>
 
-<br>
+<div class="button-group">
 
-<button class="btn-green" onclick="kirimPermintaan()">
-Kirim Permintaan
+<button
+type="button"
+class="btn-produksi"
+onclick="kirimPermintaan()">
+
+Kirim Permintaan Bibit
+
 </button>
 
 </div>
 
-<div class="box">
+</form>
 
-<h2>RIWAYAT PERMINTAAN</h2>
+</div>
+
+<!-- RIWAYAT -->
+
+<div class="table-box">
+
+<h2>STATUS PERMINTAAN BIBIT</h2>
 
 <table>
 
@@ -399,7 +514,7 @@ Kirim Permintaan
 
 </thead>
 
-<tbody id="riwayatTable"></tbody>
+<tbody id="riwayatBody"></tbody>
 
 </table>
 
@@ -418,18 +533,13 @@ let currentNik = "";
 
 function login(){
 
-const username =
+let username =
 document.getElementById("username").value;
 
-const password =
+let password =
 document.getElementById("password").value;
 
-/* ADMIN */
-
-if(
-username == "admin" &&
-password == "12345"
-){
+if(username==="admin" && password==="12345"){
 
 document.getElementById("loginPage").style.display="none";
 
@@ -440,27 +550,23 @@ loadDistribusi();
 
 }
 
-/* MASYARAKAT */
-
 else if(
-username == "warga" &&
-password == "12345"
+username==="warga" &&
+password==="12345"
 ){
 
 document.getElementById("loginPage").style.display="none";
 
 document.getElementById("masyarakatPage").style.display="block";
 
-loadBibit();
+loadBibitDropdown();
 
 }
-
-/* ERROR */
 
 else{
 
 document.getElementById("error").innerHTML =
-"Username / Password salah";
+"Username atau Password Salah!";
 
 }
 
@@ -470,7 +576,20 @@ document.getElementById("error").innerHTML =
 
 function logout(){
 
-location.reload();
+document.getElementById("adminPage").style.display =
+"none";
+
+document.getElementById("masyarakatPage").style.display =
+"none";
+
+document.getElementById("loginPage").style.display =
+"flex";
+
+document.getElementById("username").value = "";
+
+document.getElementById("password").value = "";
+
+document.getElementById("error").innerHTML = "";
 
 }
 
@@ -478,24 +597,24 @@ location.reload();
 
 async function loadStok(){
 
-const res =
+const response =
 await fetch(API_URL + "?action=getStok");
 
 const data =
-await res.json();
+await response.json();
 
-const table =
-document.getElementById("stokTable");
+let body =
+document.getElementById("stokBody");
 
-table.innerHTML = "";
+body.innerHTML = "";
 
-let total = 0;
+let totalStok = 0;
 
 data.forEach(item=>{
 
-total += Number(item.stok);
+totalStok += Number(item.stok);
 
-table.innerHTML += `
+body.innerHTML += `
 
 <tr>
 <td>${item.bibit}</td>
@@ -506,34 +625,38 @@ table.innerHTML += `
 
 });
 
+document.getElementById("totalBibit").innerHTML =
+data.length;
+
 document.getElementById("totalStok").innerHTML =
-total;
+totalStok;
 
 }
 
-/* LOAD BIBIT */
+/* LOAD DROPDOWN */
 
-async function loadBibit(){
+async function loadBibitDropdown(){
 
-const res =
+const response =
 await fetch(API_URL + "?action=getStok");
 
 const data =
-await res.json();
+await response.json();
 
-const select =
+let dropdown =
 document.getElementById("bibit");
 
-select.innerHTML = "";
+dropdown.innerHTML =
+'<option value="">Pilih Bibit</option>';
 
 data.forEach(item=>{
 
-if(Number(item.stok) > 0){
+if(item.stok > 0){
 
-select.innerHTML += `
+dropdown.innerHTML += `
 
 <option value="${item.bibit}">
-${item.bibit} (${item.stok})
+${item.bibit} (Stok: ${item.stok})
 </option>
 
 `;
@@ -544,15 +667,22 @@ ${item.bibit} (${item.stok})
 
 }
 
-/* PRODUKSI */
+/* TAMBAH PRODUKSI */
 
 async function tambahProduksi(){
 
-const bibit =
+let bibit =
 document.getElementById("produksiBibit").value;
 
-const jumlah =
+let jumlah =
 document.getElementById("jumlahProduksi").value;
+
+if(bibit=="" || jumlah==""){
+
+alert("Lengkapi data!");
+return;
+
+}
 
 await fetch(API_URL,{
 
@@ -568,58 +698,92 @@ jumlah:jumlah
 
 });
 
-alert("Produksi berhasil");
+alert("Produksi berhasil!");
+
+document.getElementById("produksiBibit").value="";
+document.getElementById("jumlahProduksi").value="";
 
 loadStok();
 
 }
 
-/* DISTRIBUSI */
+/* KIRIM DISTRIBUSI */
 
 async function kirimPermintaan(){
 
-const data = {
+let nama =
+document.getElementById("nama").value;
 
-type:"distribusi",
+let nik =
+document.getElementById("nik").value;
 
-nama:
-document.getElementById("nama").value,
+let alamat =
+document.getElementById("alamat").value;
 
-nik:
-document.getElementById("nik").value,
+let hp =
+document.getElementById("hp").value;
 
-alamat:
-document.getElementById("alamat").value,
+let bibit =
+document.getElementById("bibit").value;
 
-hp:
-document.getElementById("hp").value,
+let jumlah =
+document.getElementById("jumlah").value;
 
-bibit:
-document.getElementById("bibit").value,
+let tujuan =
+document.getElementById("tujuan").value;
 
-jumlah:
-document.getElementById("jumlah").value,
+currentNik = nik;
 
-tujuan:
-document.getElementById("tujuan").value
+if(
+nama=="" ||
+nik=="" ||
+alamat=="" ||
+hp=="" ||
+bibit=="" ||
+jumlah=="" ||
+tujuan==""
+){
 
-};
+alert("Lengkapi semua data!");
+return;
 
-currentNik = data.nik;
+}
 
-const res = await fetch(API_URL,{
+const response =
+await fetch(API_URL,{
 
 method:"POST",
-body:JSON.stringify(data)
+
+body:JSON.stringify({
+
+type:"distribusi",
+nama:nama,
+nik:nik,
+alamat:alamat,
+hp:hp,
+bibit:bibit,
+jumlah:jumlah,
+tujuan:tujuan
+
+})
 
 });
 
 const result =
-await res.json();
+await response.json();
 
-alert(result.message || "Berhasil");
+if(result.status == "error"){
 
-loadBibit();
+alert(result.message);
+return;
+
+}
+
+alert("Permintaan berhasil dikirim!");
+
+document.getElementById("formPermintaan").reset();
+
+loadBibitDropdown();
 loadRiwayat();
 
 }
@@ -628,46 +792,59 @@ loadRiwayat();
 
 async function loadDistribusi(){
 
-const res =
+const response =
 await fetch(API_URL + "?action=getDistribusi");
 
 const data =
-await res.json();
+await response.json();
 
-const table =
-document.getElementById("distribusiTable");
+let body =
+document.getElementById("distribusiBody");
 
-table.innerHTML = "";
+body.innerHTML = "";
 
 let total = 0;
 
 data.forEach(item=>{
 
+if(item.status == "ACC"){
 total += Number(item.jumlah);
+}
 
-table.innerHTML += `
+let statusClass = "";
+
+if(item.status == "Menunggu"){
+statusClass = "status-menunggu";
+}
+
+if(item.status == "ACC"){
+statusClass = "status-acc";
+}
+
+if(item.status == "Tolak"){
+statusClass = "status-tolak";
+}
+
+body.innerHTML += `
 
 <tr>
 
 <td>${item.nama}</td>
 <td>${item.nik}</td>
+<td>${item.alamat}</td>
+<td>${item.hp}</td>
 <td>${item.bibit}</td>
 <td>${item.jumlah}</td>
+<td>${item.tujuan}</td>
 
-<td class="
-${item.status=="ACC" ? "status-acc" :
-item.status=="Tolak" ? "status-tolak" :
-"status-menunggu"}
-">
-
+<td class="${statusClass}">
 ${item.status}
-
 </td>
 
 <td>
 
 <button
-class="btn-green"
+class="action-btn acc-btn"
 onclick="updateStatus('${item.id}','ACC')">
 
 ACC
@@ -675,7 +852,7 @@ ACC
 </button>
 
 <button
-class="btn-red"
+class="action-btn tolak-btn"
 onclick="updateStatus('${item.id}','Tolak')">
 
 Tolak
@@ -713,6 +890,8 @@ status:status
 
 });
 
+alert("Status berhasil diupdate!");
+
 loadDistribusi();
 loadStok();
 
@@ -722,22 +901,36 @@ loadStok();
 
 async function loadRiwayat(){
 
-const res =
+const response =
 await fetch(API_URL + "?action=getDistribusi");
 
 const data =
-await res.json();
+await response.json();
 
-const table =
-document.getElementById("riwayatTable");
+let body =
+document.getElementById("riwayatBody");
 
-table.innerHTML = "";
+body.innerHTML = "";
 
 data.forEach(item=>{
 
 if(item.nik == currentNik){
 
-table.innerHTML += `
+let statusClass = "";
+
+if(item.status == "Menunggu"){
+statusClass = "status-menunggu";
+}
+
+if(item.status == "ACC"){
+statusClass = "status-acc";
+}
+
+if(item.status == "Tolak"){
+statusClass = "status-tolak";
+}
+
+body.innerHTML += `
 
 <tr>
 
@@ -746,14 +939,8 @@ table.innerHTML += `
 <td>${item.bibit}</td>
 <td>${item.jumlah}</td>
 
-<td class="
-${item.status=="ACC" ? "status-acc" :
-item.status=="Tolak" ? "status-tolak" :
-"status-menunggu"}
-">
-
+<td class="${statusClass}">
 ${item.status}
-
 </td>
 
 </tr>
@@ -766,7 +953,32 @@ ${item.status}
 
 }
 
+/* AUTO REFRESH */
+
+setInterval(()=>{
+
+if(
+document.getElementById("adminPage").style.display=="block"
+){
+
+loadStok();
+loadDistribusi();
+
+}
+
+if(
+document.getElementById("masyarakatPage").style.display=="block"
+){
+
+loadBibitDropdown();
+loadRiwayat();
+
+}
+
+},5000);
+
 </script>
 
 </body>
 </html>
+```
