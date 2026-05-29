@@ -1,6 +1,25 @@
-self.addEventListener('install', e => {
-  console.log('Service Worker Installed');
+const CACHE_NAME = "bpdas-cache-v1";
+
+const urlsToCache = [
+  "./",
+  "./index.html",
+  "./logo.png",
+  "./login.jpg",
+  "./dashboard.jpg"
+];
+
+self.addEventListener("install", event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
 });
 
-self.addEventListener('fetch', e => {
+self.addEventListener("fetch", event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        return response || fetch(event.request);
+      })
+  );
 });
