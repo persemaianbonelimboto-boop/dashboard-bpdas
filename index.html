@@ -672,17 +672,25 @@ loadStok();
 
 async function kirimPermintaan(){
 
+const btn =
+document.querySelector(".btn-produksi");
+
+btn.disabled = true;
+btn.innerHTML = "Mengirim...";
+
+try{
+
 let nama =
-document.getElementById("nama").value;
+document.getElementById("nama").value.trim();
 
 let nik =
-document.getElementById("nik").value;
+document.getElementById("nik").value.trim();
 
 let alamat =
-document.getElementById("alamat").value;
+document.getElementById("alamat").value.trim();
 
 let hp =
-document.getElementById("hp").value;
+document.getElementById("hp").value.trim();
 
 let bibit =
 document.getElementById("bibit").value;
@@ -691,7 +699,26 @@ let jumlah =
 document.getElementById("jumlah").value;
 
 let tujuan =
-document.getElementById("tujuan").value;
+document.getElementById("tujuan").value.trim();
+
+if(
+nama=="" ||
+nik=="" ||
+alamat=="" ||
+hp=="" ||
+bibit=="" ||
+jumlah=="" ||
+tujuan==""
+){
+
+alert("Lengkapi semua data!");
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Permintaan Bibit";
+
+return;
+
+}
 
 const response =
 await fetch(API_URL,{
@@ -719,13 +746,34 @@ await response.json();
 if(result.status == "error"){
 
 alert(result.message);
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Permintaan Bibit";
+
 return;
 
 }
 
 alert("Permintaan berhasil dikirim!");
 
-cekStatusWarga();
+document.getElementById("formPermintaan").reset();
+
+loadBibitDropdown();
+
+document.getElementById("statusBody").innerHTML = "";
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Permintaan Bibit";
+
+}
+catch(error){
+
+alert("Gagal mengirim permintaan!");
+
+btn.disabled = false;
+btn.innerHTML = "Kirim Permintaan Bibit";
+
+}
 
 }
 
