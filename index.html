@@ -644,11 +644,33 @@ ${item.bibit} (Stok: ${item.stok})
 
 async function tambahProduksi(){
 
+const btn =
+document.querySelector(".btn-admin");
+
+btn.disabled = true;
+btn.innerHTML = "Mengirim...";
+
+try{
+
 let bibit =
-document.getElementById("produksiBibit").value;
+document.getElementById("produksiBibit").value.trim();
 
 let jumlah =
 document.getElementById("jumlahProduksi").value;
+
+if(
+bibit == "" ||
+jumlah == ""
+){
+
+alert("Lengkapi data produksi!");
+
+btn.disabled = false;
+btn.innerHTML = "Tambah Produksi";
+
+return;
+
+}
 
 await fetch(API_URL,{
 
@@ -666,7 +688,23 @@ jumlah:jumlah
 
 alert("Produksi berhasil!");
 
+document.getElementById("produksiBibit").value = "";
+document.getElementById("jumlahProduksi").value = "";
+
 loadStok();
+
+btn.disabled = false;
+btn.innerHTML = "Tambah Produksi";
+
+}
+catch(error){
+
+alert("Gagal menambah produksi!");
+
+btn.disabled = false;
+btn.innerHTML = "Tambah Produksi";
+
+}
 
 }
 
