@@ -1023,6 +1023,38 @@ cekStatusWarga();
 if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("service-worker.js");
 }
+function ambilLokasi(){
+
+if(!navigator.geolocation){
+
+alert("GPS tidak didukung browser ini");
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+function(pos){
+
+document.getElementById("koordinatX").value =
+pos.coords.latitude;
+
+document.getElementById("koordinatY").value =
+pos.coords.longitude;
+
+alert("Koordinat berhasil diambil");
+
+},
+
+function(error){
+
+alert("Gagal mengambil lokasi. Pastikan GPS aktif dan izin lokasi diberikan.");
+
+}
+
+);
+
+}
 </script>
 
 </body>
