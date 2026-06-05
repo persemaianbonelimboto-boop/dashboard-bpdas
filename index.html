@@ -930,6 +930,7 @@ statusClass = "status-tolak";
 }
 
 body.innerHTML += `
+
 <tr>
 
 <td>${item.nama}</td>
@@ -948,7 +949,6 @@ body.innerHTML += `
 <td class="${statusClass}">
 ${item.status}
 </td>
-`
 
 <td>
 
@@ -973,8 +973,6 @@ Tolak
 </tr>
 
 `;
-
-});
 
 document.getElementById("totalDistribusi").innerHTML =
 total;
