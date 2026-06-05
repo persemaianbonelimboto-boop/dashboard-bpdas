@@ -930,20 +930,25 @@ statusClass = "status-tolak";
 }
 
 body.innerHTML += `
-
 <tr>
 
 <td>${item.nama}</td>
 <td>${item.nik}</td>
 <td>${item.alamat}</td>
 <td>${item.hp}</td>
+
 <td>${item.bibit}</td>
 <td>${item.jumlah}</td>
 <td>${item.tujuan}</td>
 
+<td>${item.koordinatX}</td>
+<td>${item.koordinatY}</td>
+<td>${item.luas}</td>
+
 <td class="${statusClass}">
 ${item.status}
 </td>
+`
 
 <td>
 
